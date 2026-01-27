@@ -1,8 +1,12 @@
 package com.back.domain.post.post.service;
 
+import com.back.domain.member.member.entity.Member;
 import com.back.domain.post.dto.PostModifyRequest;
 import com.back.domain.post.post.entity.Post;
+import com.back.domain.post.post.entity.PostLike;
+import com.back.domain.post.post.repository.PostLikeRepository;
 import com.back.domain.post.post.repository.PostRepository;
+import com.back.domain.post.postComment.PostCommentRepository;
 import com.back.domain.post.postComment.entity.PostComment;
 import com.back.domain.tag.tag.entity.Tag;
 import com.back.domain.tag.tag.service.TagService;
@@ -22,14 +26,15 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
     private  final TagService tagService;
-
+    private final PostCommentRepository postCommentRepository;
+    private final PostLikeRepository postLikeRepository;
 
     public Page<Post> findAll(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
 
-    public Post write(String title, String content, List<String> tagNames) {
-        Post post = new Post(title, content);
+    public Post write(Member author, String title, String content, List<String> tagNames) {
+        Post post = new Post(author, title, content);
         Post savedPost = postRepository.save(post);
 
         if (tagNames != null && !tagNames.isEmpty()) {
@@ -50,7 +55,13 @@ public class PostService {
     }
 
     public Optional<Post> findById(int id) {
-        return postRepository.findById(id);
+        Optional<Post> opPost = postRepository.findById(id);
+
+        if(opPost.isPresent()){
+            Post post = opPost.get();
+            post.setViewCount(post.getViewCount()+1);
+        }
+        return opPost;
     }
 
     public Page<Post> searchByTitle(String keyword, Pageable pageable){
@@ -61,12 +72,41 @@ public class PostService {
         return postRepository.findByPostTags_Tag_Content(tagName, pageable);
     }
 
-    public PostComment writeComment(Post post, String content) {
-        return post.addComment(content);
+    public PostComment writeComment(Member author, Post post, String content, Integer parentCommentId) {
+        PostComment comment = new PostComment();
+        comment.setPost(post);
+        comment.setContent(content);
+        comment.setAuthor(author);
+
+        if(parentCommentId != null){
+            PostComment parent = postCommentRepository.findById(parentCommentId)
+                    .orElseThrow(()->new ServiceException("404-1", "댓글을 찾을 수 없습니다."));
+            comment.setParent(parent);
+
+            if(parent.getParent() != null){
+                throw new ServiceException("400-3", "대댓글에는 답글을 달 수 없습니다.");
+            }
+            comment.setParent(parent);
+        }
+        return postCommentRepository.save(comment);
     }
 
-    public boolean deleteComment(Post post, PostComment postComment) {
-        return post.deleteComment(postComment);
+    public void deleteComment(PostComment postComment) {
+        if (!postComment.getChildren().isEmpty()) {
+            postComment.markAsDeleted();
+        }
+        else {
+            PostComment parent = postComment.getParent();
+
+            if (parent != null) {
+                parent.getChildren().remove(postComment);
+            }
+            postCommentRepository.delete(postComment);
+
+            if (parent != null && parent.isDeleted() && parent.getChildren().isEmpty()) {
+                postCommentRepository.delete(parent);
+            }
+        }
     }
 
     public void modifyComment(PostComment postComment, String content) {
@@ -99,7 +139,36 @@ public class PostService {
         }
     }
 
+    public void checkPermission(Post post, Member author){
+        if(post.getAuthor().getId() != author.getId()){
+            throw new ServiceException("403-1", "해당 게시글에 대한 권한이 없습니다.");
+        }
+    }
 
+    public boolean toggleLike(Member member, int postId){
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()->new ServiceException("404-1","게시글이 존재하지 않습니다."));
+
+        Optional<PostLike> opLike = postLikeRepository.findByMemberAndPost(member,post);
+
+        if(opLike.isPresent()){
+            postLikeRepository.delete(opLike.get());
+            return false;
+        }else {
+            postLikeRepository.save(PostLike.builder()
+                    .member(member)
+                    .post(post)
+                    .build());
+            return true;
+        }
+    }
+
+    public long getLikeCount(int postId){
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()->new ServiceException("404-1","게시글이 없습니다."));
+
+        return postLikeRepository.countByPost(post);
+    }
 
 
 }

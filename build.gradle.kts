@@ -28,6 +28,10 @@ repositories {
 }
 
 dependencies {
+	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
+
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
@@ -51,8 +55,8 @@ dependencies {
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-//    testImplementation("org.springframework.boot:spring-boot-starter-security-test")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.boot:spring-boot-starter-security-test")
 
     implementation("org.springframework.boot:spring-boot-starter-restclient")
 
@@ -68,6 +72,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("com.github.ben-manes.caffeine:caffeine")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    //RestClient test용
+    testImplementation(platform("com.squareup.okhttp3:okhttp-bom:5.3.2"))
+    testImplementation("com.squareup.okhttp3:mockwebserver")
+
+    //Guava rate limiter
+    implementation("com.google.guava:guava:33.4.0-jre")
 
 }
 
