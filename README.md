@@ -298,3 +298,54 @@ IGDB API 기반 게임 검색 기능을 담당하여
 
 실제 서비스 환경을 고려해  
 검색 조건 확장성과 유지보수성을 중심으로 API 구조를 설계했습니다.
+
+---
+
+## 💻 발표 자료
+![1](https://github.com/user-attachments/assets/3000d214-64c3-4bec-9b7b-964e167437a6)
+![2](https://github.com/user-attachments/assets/a725d545-4bc4-439f-9bba-290460441820)
+![3](https://github.com/user-attachments/assets/f20b9b50-7baa-4103-b7a0-ef0f7a4688eb)
+![4](https://github.com/user-attachments/assets/552ee796-cb01-4bee-bae5-798203a09513)
+![5](https://github.com/user-attachments/assets/de936457-4f29-440c-b822-606d3b0ecf67)
+![6](https://github.com/user-attachments/assets/e45098fc-5cee-4452-9714-fabecb947800)
+![7](https://github.com/user-attachments/assets/e6746885-e42b-468f-8164-675a0bbbeb9f)
+![8](https://github.com/user-attachments/assets/cf4e14db-0e1d-41d4-a0d3-1080fc82eaed)
+![9](https://github.com/user-attachments/assets/20aee9c3-d57f-4449-b919-d66ed593fdb8)
+![10](https://github.com/user-attachments/assets/8e5831d1-9dd7-4800-bf3b-4d5119607bae)
+![11](https://github.com/user-attachments/assets/aceab412-d5fd-4376-8a83-5dfe8021ea72)
+![12](https://github.com/user-attachments/assets/0ac79558-c09e-45d5-a070-d1c1abd3e0a2)
+![13](https://github.com/user-attachments/assets/df4d87a1-97d7-4d03-9804-b3d84110c865)
+![14](https://github.com/user-attachments/assets/72897ae4-7247-487e-8ef3-a6847a6dcc87)
+![15](https://github.com/user-attachments/assets/b1aea4d6-97a5-40c1-843b-e05286d56bc6)
+![16](https://github.com/user-attachments/assets/974940ce-cbb3-4eb2-afed-eb074625536e)
+![17](https://github.com/user-attachments/assets/4ec4e645-e263-456c-b4d9-d4bf6a726085)
+![18](https://github.com/user-attachments/assets/0ae4610c-1cb3-4874-a3ed-1afc6efc99ba)
+![19](https://github.com/user-attachments/assets/26f79400-c645-4622-b19b-b928b40e0b6f)
+![20](https://github.com/user-attachments/assets/a80c2b11-aaba-43e9-a405-bad463fb9e9e)
+![21](https://github.com/user-attachments/assets/f3c010fa-dbdc-4395-9b61-03d163e6093b)
+![22](https://github.com/user-attachments/assets/58085fcf-ea72-40d9-b39d-20a69a7bbfae)
+![23](https://github.com/user-attachments/assets/3bee5a23-4ed1-4d43-9a4a-451dfdbabf01)
+![24](https://github.com/user-attachments/assets/33003d55-0286-4d7c-bdcf-1fbe8f007a54)
+![25](https://github.com/user-attachments/assets/4e7f6c2c-586a-492a-8696-8476e4fe38a7)
+![26](https://github.com/user-attachments/assets/26a92124-01ad-4a62-8e2c-465e8cc93bc1)
+![27](https://github.com/user-attachments/assets/0e5e7054-e693-42e0-a7a7-5a3f19aee064)
+![28](https://github.com/user-attachments/assets/2a77e8b6-6905-4dbc-a2a0-c0800564d3f3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
